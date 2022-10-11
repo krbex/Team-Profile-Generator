@@ -94,3 +94,33 @@ function engineerAdd() {
         employeeContinue();
     });
 }
+function internAdd() {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'What is the interns name?'
+        },
+        {
+            type: 'input',
+            name: 'id',
+            message: 'What is the interns id?'
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: 'What is the interns email?'
+        },
+        {
+            type: 'input',
+            name: 'school',
+            message: 'What school does the intern go to?'
+        },
+    ])
+    .then((answers) =>{
+        const intern = new Intern(answers.name, answers.id, answers.email, answers.school);
+        employeeArray.push(intern);
+        console.log(`Welcome to the team ${answers.name}!`);
+        employeeContinue();
+    });
+}
