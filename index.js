@@ -2,13 +2,10 @@ const Employee = require('./lib/employee');
 const Manager = require('./lib/manager');
 const Engineer = require('./lib/engineer');
 const Intern = require('./lib/intern');
-const generateMockup = require('../src/generateMockup')
-const fs = require('fs')
+const {generateTeam} = require('./src/generateMockup');
+const fs = require('fs').promises;
+const inquirer = require('inquirer');
 const employee = new Employee();
-const { default: inquirer } = require("inquirer");
-const inquirer = require(inquirer);
-
-employee.team();
 
 function employeeContinue() {
     return inquirer.prompt([
@@ -25,7 +22,7 @@ function employeeContinue() {
         } else if(answers.anotherOne === 'Intern'){
             internAdd();
         } else {
-            fs.writeFile('Index.html', generateMockup(employeeArray))
+            fs.writeFile('Index.html', generateTeam(answers))
             console.logo('Your team webpage is finished!')
         };
     });

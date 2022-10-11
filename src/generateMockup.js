@@ -1,4 +1,6 @@
-function generateTeam(team) {
+const fs = require('fs')
+
+function generateTeam(employeeArray) {
 
     function generateManager(manager) {
         return `
@@ -97,4 +99,8 @@ function generateTeam(team) {
         </div>       
     </body>
     </html>`;
+}
+
+module.exports = {
+    generateTeam,
 }
