@@ -2,7 +2,7 @@ const Employee = require('./lib/employee');
 const Manager = require('./lib/manager');
 const Engineer = require('./lib/engineer');
 const Intern = require('./lib/intern');
-const {generateTeam} = require('./src/generateMockup');
+const generateMockup = require('./src/generateMockup');
 const fs = require('fs').promises;
 const inquirer = require('inquirer');
 const employee = new Employee();
@@ -22,10 +22,9 @@ function employeeContinue() {
         } else if(answers.anotherOne === 'Intern'){
             internAdd();
         } else {
-            fs.writeFile('Index.html', generateTeam(answers))
-            console.logo('Your team webpage is finished!')
-        };
-    });
+            console.log('Your team webpage is finished!')
+        }
+    }).then(generateMockup.generateTeam(employeeArray));
 };
 
 const employeeArray = []
@@ -120,4 +119,8 @@ function internAdd() {
         console.log(`Welcome to the team ${answers.name}!`);
         employeeContinue();
     });
+}
+
+module.exports = {
+    employeeArray
 }

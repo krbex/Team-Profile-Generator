@@ -1,4 +1,6 @@
-const fs = require('fs')
+const fs = require('fs');
+const employeeArray = require('../index')
+const manager = require('../lib/manager')
 
 var pageText = `
 <!DOCTYPE html>
@@ -30,40 +32,42 @@ var pageText = `
         <div class="row">
             <div class="col-12 d-flex justify-content-center">`
 
-const generateMockup = (employeeArray) => {
-    employeeArray.forEach(element => {
+const generateTeam = (employeeArray) => {
+    employeeArray.forEach(employee => {
         pageText += `<div class = "col 4">
             <div class = "card">
                 <div class = "role">
-                    <h2>${element.getName()}</h2>`;
-                        if (element.getRole() === "Manager") {
+                    <h2>${employee.getName()}</h2>`;
+                        if (employee.getRole() === "Manager") {
                             pageText += `<h3><i class="fa-sharp fa-solid fa-paperclip"></i> Manager</h3>`
-                        } else if (element.getRole() === "Engineer") {
+                        } else if (employee.getRole() === "Engineer") {
                             pageText += `<h3><i class="fa-sharp fa-solid fa-wrench-simple"></i> Engineer</h3>`
-                        } else if (element.getRole() === "Intern") {
+                        } else if (employee.getRole() === "Intern") {
                             pageText += `<h3><i class="fa-sharp fa-solid fa-graduation-cap"></i> Manager</h3>`
                         }
                 pageText += `</div>
                 <div>
                     <ul>
-                        <li id = "id">${element.getId()}</li>
-                        <li id = "email">Email: <a href = "mailto:${element.getEmail()}">${element.getEmail()}</a></li>`;
-                        if (element.getRole() === "Manager") {
-                            pageText += `<li id = "office">Office number:${element.getOfficeNumber()}</li>`
-                        } else if (element.getRole() === "Engineer") {
-                            pageText += `<li id = "github">GitHub: <a href = "https://github.com/${element.getOfficeNumber()}>${element.getGithub()}</li>`
-                        } else if (element.getRole() === "Intern") {
-                            pageText += `<li> School: ${element.getSchool()}</li>`
+                        <li id = "id">${employee.getId()}</li>
+                        <li id = "email">Email: <a href = "mailto:${employee.getEmail()}">${employee.getEmail()}</a></li>`;
+                        if (employee.getRole() === "Manager") {
+                            pageText += `<li id = "office">Office number:${employee.getOfficenum()}</li>`
+                        } else if (employee.getRole() === "Engineer") {
+                            pageText += `<li id = "github">GitHub: <a href = "https://github.com/${employee.getGithub()}>${employee.getGithub()}</li>`
+                        } else if (employee.getRole() === "Intern") {
+                            pageText += `<li> School: ${employee.getSchool()}</li>`
                         }
                     pageText += `</ul>
                 </div>
             </div>
         </div>`      
+       
     });
 }
-
 pageText += `</div></div></div></body></html>`;
+ console.log(pageText)
+fs.writeFileSync('./html/index.html', pageText);
 
 module.exports = {
-    generateMockup,
+    generateTeam,
 }
